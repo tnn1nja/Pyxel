@@ -1,6 +1,17 @@
 import math
 
-def get_y(radius, x_center, y_center, x):
-    return math.sqrt(radius**2 - (x_center - x)**2) + y_center
+def displayGrid(grid):
+    for row in grid:
+        for element in row:
+            print(element, end=" ")
+        print("")
 
-print(get_y(5, 1, 1, 5))
+radius = 5
+gridSize = (radius*2) + 1
+grid = [["."]*gridSize]*gridSize
+
+displayGrid(grid)
+
+x = 0
+y = math.sqrt(radius**2 - x**2)
+print(y)
