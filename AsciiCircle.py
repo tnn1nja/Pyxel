@@ -1,4 +1,4 @@
-import math
+from math import sqrt
 
 def displayGrid(grid):
     for row in grid:
@@ -6,12 +6,18 @@ def displayGrid(grid):
             print(element, end=" ")
         print("")
 
+def intRound(num):
+    return int(round(num))
+
 radius = 5
 gridSize = (radius*2) + 1
-grid = [["."]*gridSize]*gridSize
+grid = [["."]*gridSize for x in range(gridSize)]
+
+verts = 90
+for i in range(verts+1):
+    x = (i/verts) * radius
+    y = sqrt(radius**2 - x**2)
+    grid[intRound(y)][intRound(x)] = "#" 
 
 displayGrid(grid)
 
-x = 0
-y = math.sqrt(radius**2 - x**2)
-print(y)
