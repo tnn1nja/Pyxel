@@ -32,7 +32,9 @@ else:
     spacer = " "
 
 #Output 
+print("")
 for row in grid:
     for element in row:
         print(element, end=spacer)
     print("")
+print("")
