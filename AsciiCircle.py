@@ -1,10 +1,10 @@
 from math import sqrt
 
 #Constants
-block ="#" #"█"
-space = "." #" "
-fill = False
-radius = 5  #int(input("Enter your desired circle radius: "))
+block = "█"
+space = " "
+fill = True
+radius = int(input("Enter your desired circle radius: "))
 
 #Create
 gridSize = (radius*2) + 1
