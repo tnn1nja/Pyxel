@@ -1,13 +1,16 @@
 from math import sqrt
 
-block = "█"
-radius = int(input("Enter your desired circle radius: "))
+#Constants
+block ="#" #"█"
+space = "." #" "
+fill = False
+radius = 5  #int(input("Enter your desired circle radius: "))
 
-#Create Grid
+#Create
 gridSize = (radius*2) + 1
-grid = [[" "]*gridSize for x in range(gridSize)]
+grid = [[space]*gridSize for x in range(gridSize)]
 
-#Populate Grid
+#Populate
 verts = radius*100
 for i in range(verts+1):
     x = (i/verts) * radius
@@ -18,17 +21,18 @@ for i in range(verts+1):
             xCoord = radius + dx*int(round(x))
             grid[yCoord][xCoord] = block
 
-#Strech Grid
-for row in grid:
-    for i in range(len(row)):
-        symbol = " "
-        if row[i*2] == block:
-            symbol = block
-        row.insert(i*2+1, symbol)
+#Stretch
+if fill:
+    for row in grid:
+        for i in range(len(row)):
+            symbol = row[i*2]
+            row.insert(i*2, symbol)
+    spacer = ""
+else:
+    spacer = " "
 
-#Output Grid
-print(f"Circle of radius {radius}...")
+#Output 
 for row in grid:
     for element in row:
-        print(element, end="")
+        print(element, end=spacer)
     print("")
