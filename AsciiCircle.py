@@ -1,20 +1,28 @@
-import sys
 import math
 
-#Constants
-block = "#" #"█"
-space = "." #" "
-fill = False #True
-radius = 25 #int(sys.argv[1])
-useTrig = True
-resolution = radius*100
+def getSymbols(debug):
+    if debug:
+        return ("#", ".")
+    else:
+        return ("█", " ")
 
-#Create
-gridSize = (radius*2) + 1
-grid = [[space]*gridSize for x in range(gridSize)]
+def getGrid(size, space):
+    return  [[space]*size for x in range(size)]
 
-#Populate With Pythagoras
-if useTrig:
+def getTrigCircle(radius, debug=False):
+    block, space = getSymbols(debug)
+    grid = getGrid(radius*2+1)
+    resolution = radius*10
+    for i in range(-resolution, resolution):
+        x = radius * math.sin((i/resolution)*2*math.pi) + radius
+        y = radius * math.cos((i/resolution)*2*math.pi) + radius
+        grid[round(y)][round(x)] = block
+    return grid
+
+def getPythCircle(radius, debug=False):
+    block, space = getSymbols(debug)
+    grid = getGrid(radius*2+1, space)
+    resolution = radius*100
     for i in range(resolution+1):
         x = (i/resolution) * radius
         y = math.sqrt(radius**2 - x**2)
@@ -23,21 +31,15 @@ if useTrig:
                 yCoord = radius + dy*int(round(y))
                 xCoord = radius + dx*int(round(x))
                 grid[yCoord][xCoord] = block
-#Populate With Trigonometry
-else:
-    for i in range(-resolution, resolution):
-        x = radius * math.sin((i/resolution)*2*math.pi) + radius
-        y = radius * math.cos((i/resolution)*2*math.pi) + radius
-        grid[round(y)][round(x)] = block
+    return grid
 
-
-#Output 
-print("")
-for row in grid:
-    for element in row:
-        if fill:
-            print(element*2, end="")
-        else:
-            print(element, end=" ")
+def drawGrid(grid, fillStretch):      
     print("")
-print("")
+    for row in grid:
+        for element in row:
+            if fillStretch:
+                print(element*2, end="")
+            else:
+                print(element, end=" ")
+        print("")
+    print("")
