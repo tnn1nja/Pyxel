@@ -1,39 +1,12 @@
 import math
 
 def getSymbols(debug):
-    if debug:
-        return ("#", ".")
-    else:
-        return ("█", " ")
+    return ("#", ".") if debug else ("█", " ")
 
 def getGrid(size, space):
-    return  [[space]*size for x in range(size)]
+    return  [[space]*size for x in range(size)]  
 
-def getTrigCircle(radius, debug=False):
-    block, space = getSymbols(debug)
-    grid = getGrid(radius*2+1)
-    resolution = radius*10
-    for i in range(-resolution, resolution):
-        x = radius * math.sin((i/resolution)*2*math.pi) + radius
-        y = radius * math.cos((i/resolution)*2*math.pi) + radius
-        grid[round(y)][round(x)] = block
-    return grid
-
-def getPythCircle(radius, debug=False):
-    block, space = getSymbols(debug)
-    grid = getGrid(radius*2+1, space)
-    resolution = radius*100
-    for i in range(resolution+1):
-        x = (i/resolution) * radius
-        y = math.sqrt(radius**2 - x**2)
-        for dy in (-1, 1):
-            for dx in (-1, 1):
-                yCoord = radius + dy*int(round(y))
-                xCoord = radius + dx*int(round(x))
-                grid[yCoord][xCoord] = block
-    return grid
-
-def drawGrid(grid, fillStretch):      
+def drawGrid(grid, fillStretch=True):  
     print("")
     for row in grid:
         for element in row:
@@ -43,3 +16,27 @@ def drawGrid(grid, fillStretch):
                 print(element, end=" ")
         print("")
     print("")
+
+def drawCircle(radius, debug=False, useTrig=True):
+    block, space = getSymbols(debug)
+    grid = getGrid(radius*2+1, space)
+    resolution = radius*100
+    
+    if useTrig:
+        for i in range(-resolution, resolution):
+            x = radius * math.sin((i/resolution)*2*math.pi) + radius
+            y = radius * math.cos((i/resolution)*2*math.pi) + radius
+            grid[round(y)][round(x)] = block
+    else:
+        for i in range(resolution+1):
+            x = (i/resolution) * radius
+            y = math.sqrt(radius**2 - x**2)
+            for dy in (-1, 1):
+                for dx in (-1, 1):
+                    yCoord = radius + dy*int(round(y))
+                    xCoord = radius + dx*int(round(x))
+                    grid[yCoord][xCoord] = block
+
+    drawGrid(grid)
+
+drawCircle(25)
