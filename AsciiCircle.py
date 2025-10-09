@@ -1,10 +1,11 @@
 from math import sqrt
+from sys import argv
 
 #Constants
 block = "█"
 space = " "
 fill = True
-radius = int(input("Enter your desired circle radius: "))
+radius = int(argv[1])
 
 #Create
 gridSize = (radius*2) + 1
