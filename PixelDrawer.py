@@ -39,5 +39,6 @@ def drawCircle(radius, debug=False, useTrig=True):
 
     drawGrid(grid)
 
-from sys import argv
-drawCircle(int(argv[1]))
+if __name__ == "main":
+    from sys import argv
+    drawCircle(int(argv[1]))
