@@ -1,4 +1,4 @@
 import PixelDrawer
 
-PixelDrawer.drawCircle(5)
-PixelDrawer.drawTriangle(5)
+PixelDrawer.drawCircle(10)
+PixelDrawer.drawTriangle(21)

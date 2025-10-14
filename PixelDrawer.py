@@ -59,7 +59,6 @@ def drawTriangle(width, height=None):
     midLeft = math.floor((width-1)/2)
     midRight = math.ceil((width-1)/2)
 
-    print(f"width: {width}, mid: {midLeft}, {midRight}")
     addLine(grid, 0, 0, midLeft, height-1)
     addLine(grid, midRight, height-1, width-1, 0)
     addLine(grid, 0, 0, width-1, 0)
