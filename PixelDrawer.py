@@ -28,24 +28,14 @@ def addLine(grid, a, b, c, d):
         y = m*x - m*a + b
         grid[round(y)][round(x)] = block
 
-def drawCircle(radius, useTrig=True):
+def drawCircle(radius):
     grid = getGrid(radius*2+1, radius*2+1)
-    resolution = radius*100
+    resolution = radius*10
     
-    if useTrig:
-        for i in range(-resolution, resolution):
-            x = radius * math.sin((i/resolution)*2*math.pi) + radius
-            y = radius * math.cos((i/resolution)*2*math.pi) + radius
-            grid[round(y)][round(x)] = block
-    else:
-        for i in range(resolution+1):
-            x = (i/resolution) * radius
-            y = math.sqrt(radius**2 - x**2)
-            for dy in (-1, 1):
-                for dx in (-1, 1):
-                    yCoord = radius + dy*int(round(y))
-                    xCoord = radius + dx*int(round(x))
-                    grid[yCoord][xCoord] = block
+    for i in range(-resolution, resolution):
+        x = radius * math.sin((i/resolution)*2*math.pi) + radius
+        y = radius * math.cos((i/resolution)*2*math.pi) + radius
+        grid[round(y)][round(x)] = block
 
     drawGrid(grid)
 
@@ -63,4 +53,4 @@ def drawTriangle(width, height=None):
 
     drawGrid(grid)
 
-drawTriangle(20)
+drawCircle(100)
