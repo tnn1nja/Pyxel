@@ -19,8 +19,6 @@ def drawGrid(grid):
 def addLine(grid, a, b, c, d):
     if c == a:
         return 
-    elif b == d:
-        m = 0
     else:
         m = (b-d)/(a-c)
 
@@ -64,3 +62,5 @@ def drawTriangle(width, height=None):
     addLine(grid, 0, 0, width-1, 0)
 
     drawGrid(grid)
+
+drawTriangle(20)
