@@ -28,16 +28,17 @@ def draw(panel, x, y):
     
     x = round(x)
     y = round(y)
-    if 0 <= x < len(panel[0]) and x >= 0 and 0 <= y < len(panel):
+    if 0 <= x < len(panel[0]) and 0 <= y < len(panel):
         panel[y][x] = block
 
 def draw_line(panel, a, b, c, d):
     if a == c:
-        for y in range(min(b,d), max(b,d)+1):
+        for y in range(round(min(b,d)), round(max(b,d))+1):
             draw(panel, a, y)
     else:
         m = (b-d)/(a-c)
-        iterations = round((abs(c-a)+1)*(abs(m)+1)*100)
+        iterations = round((abs(c-a)+1)*len(panel))
+        print(iterations)
         for i in range(iterations+1):
             x = min(a,c) + (i/iterations)*abs(c-a)
             y = m*x - m*a + b
@@ -61,8 +62,20 @@ def display_triangle(width, height=None):
     display_panel(panel)
 
 def display_ngon(n, radius):
-    pass
+    panel = get_panel(radius*2+1)
+    for i in range(n+1):
+        x, y = get_radius_coords(radius, (i/n)*2*math.pi)
+        if i > 0:
+            draw_line(panel, lx, ly, x, y)
+        lx, ly = x, y
+    display_panel(panel)
+
 
 if __name__ == "__main__":
-    display_circle(5)
+    #display_ngon(6, 8)
+    panel = get_panel(20, 20)
+    draw_line(panel, 18.660254037844386, 15.0, 18.66025403784439, 5.00)
+    display_panel(panel)
     ()
+
+#18.660254037844386, 15.0, 18.66025403784439, 5.000000000000002
