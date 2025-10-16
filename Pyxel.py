@@ -2,6 +2,11 @@ import math
 debug = True
 block, space = ("#", ".") if debug else ("█", " ")
 
+def get_radius_coords(radius, angle):
+    x = radius + radius*math.sin(angle)
+    y = radius + radius*math.cos(angle)
+    return x, y
+
 def get_panel(width, height=None):
     if height == None:
         height = width
@@ -41,9 +46,8 @@ def draw_line(panel, a, b, c, d):
 def display_circle(radius):
     resolution = radius*100
     panel = get_panel(radius*2+1)
-    for i in range(-resolution, resolution):
-        x = radius * math.sin((i/resolution)*2*math.pi) + radius
-        y = radius * math.cos((i/resolution)*2*math.pi) + radius
+    for i in range(resolution):
+        x, y = get_radius_coords(radius, (i/resolution)*2*math.pi)
         draw(panel, x, y)
     display_panel(panel)
 
@@ -56,8 +60,9 @@ def display_triangle(width, height=None):
     draw_line(panel, width-1, 0, 0, 0)
     display_panel(panel)
 
+def display_ngon(n, radius):
+    pass
 
 if __name__ == "__main__":
-    panel = get_panel(10)
-    display_panel(panel)
+    display_circle(5)
     ()
