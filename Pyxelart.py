@@ -23,7 +23,7 @@ def draw(panel, x, y):
 
 def draw_line(panel, a, b, c, d):
     if a == c:
-        for y in range(len(panel)):
+        for y in range(min(b,d), max(b,d)+1):
             draw(panel, a, y)
     else:
         m = (b-d)/(a-c)
@@ -55,13 +55,6 @@ def display_triangle(width, height=None):
 
 if __name__ == "__main__":
     panel = get_panel(10)
-    #draw_line(panel, 0, 9, 0, 0)
-    #draw_line(panel, 0, 9, 9, 9)
-    #draw_line(panel, 9, 9, 9, 0)
-    #draw_line(panel, 9, 0, 0, 0)
-    #draw_line(panel, 0, 0, 9, 9)
-    #draw_line(panel, 9, 9, 0, 0)
-    draw_line(panel, 0, 9, 0, 9)
-    #currently vertical drawer always covers the entire panel
+    draw_line(panel, 0, 6, 0, 9)
     display_panel(panel)
     ()
