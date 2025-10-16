@@ -46,7 +46,7 @@ class Panel:
                 self.draw(self.panel, a, y)
         else:
             m = (b-d)/(a-c)
-            iterations = round((abs(c-a)+1)*len(panel))
+            iterations = round((abs(c-a)+1)*len(self.panel))
             for i in range(iterations+1):
                 x = min(a,c) + (i/iterations)*abs(c-a)
                 y = m*x - m*a + b
