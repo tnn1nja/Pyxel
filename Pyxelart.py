@@ -18,8 +18,10 @@ def display_panel(panel):
     print("")
 
 def draw(panel, x, y):
-    if x < len(panel) and x >= 0 and y < len(panel[0]) and y >= 0:
-        panel[round(y)][round(x)] = block
+    x = round(x)
+    y = round(y)
+    if 0 <= x < len(panel[0]) and x >= 0 and 0 <= y < len(panel):
+        panel[y][x] = block
 
 def draw_line(panel, a, b, c, d):
     if a == c:
@@ -45,7 +47,6 @@ def display_circle(radius):
 def display_triangle(width, height=None):
     if height == None:
         height = width
-
     panel = get_panel(width, height)
     draw_line(panel, 0, 0, math.floor((width-1)/2), height-1)
     draw_line(panel, math.ceil(width-1)/2, height-1, width-1, 0)
