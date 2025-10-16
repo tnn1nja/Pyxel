@@ -52,18 +52,18 @@ class Panel:
                 y = m*x - m*a + b
                 self.draw(self.panel, x , y)
 
-    def draw_circle(self, radius, a=0, b=0):
-        resolution = radius*100
-        for i in range(resolution):
-            x, y = polar_to_cartesian(radius, (i/resolution)*2*math.pi)
-            self.draw(self.panel, x+a, y+b)
-
     def draw_triangle(self, width, height=None, a=0, b=0):
         if height == None:
             height = width
         self.draw_line(self.panel, a, b, math.floor((width-1)/2)+a, height-1+b)
         self.draw_line(self.panel, math.ceil(width-1)/2+a, height-1+b, width-1, b)
         self.draw_line(self.panel, width-1+a, b, a, b)
+
+    def draw_circle(self, radius, a=0, b=0):
+        resolution = radius*100
+        for i in range(resolution):
+            x, y = polar_to_cartesian(radius, (i/resolution)*2*math.pi)
+            self.draw(self.panel, x+a, y+b)
 
     def draw_ngon(self, n, radius, a=0, b=0):
         for i in range(n+1):
