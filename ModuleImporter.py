@@ -1,8 +1,10 @@
 import Pyxel
 
-from time import sleep
-from os import system
-for i in range(1,20):
-    system("cls")
-    Pyxel.display_ngon(i, 100)
-    sleep(1)
+panel = Pyxel.Panel(201)
+panel.draw_ngon(0, 0, 3, 100)
+panel.draw_ngon(0, 0, 4, 100)
+panel.draw_ngon(0, 0, 5, 100)
+panel.draw_ngon(0, 0, 6, 100)
+panel.draw_ngon(0, 0, 7, 100)
+panel.draw_circle(0, 0, 100)
+panel.display()

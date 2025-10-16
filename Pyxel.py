@@ -78,9 +78,4 @@ class Panel:
 
 
 if __name__ == "__main__":
-    my_panel = Panel(201)
-    my_panel.draw_circle(0, 0, 100)
-    my_panel.draw_ngon(10, 10, 5, 90)
-    my_panel.draw_line(30, 30, 170, 170)
-    my_panel.display()
     pass
