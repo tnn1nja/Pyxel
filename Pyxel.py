@@ -1,5 +1,5 @@
 import math
-debug = True
+debug = False
 block, space = ("#", ".") if debug else ("█", " ")
 
 def get_radius_coords(radius, angle):
@@ -32,13 +32,12 @@ def draw(panel, x, y):
         panel[y][x] = block
 
 def draw_line(panel, a, b, c, d):
-    if a == c:
+    if round(a,5) == round(c,5):
         for y in range(round(min(b,d)), round(max(b,d))+1):
             draw(panel, a, y)
     else:
         m = (b-d)/(a-c)
         iterations = round((abs(c-a)+1)*len(panel))
-        print(iterations)
         for i in range(iterations+1):
             x = min(a,c) + (i/iterations)*abs(c-a)
             y = m*x - m*a + b
@@ -72,10 +71,9 @@ def display_ngon(n, radius):
 
 
 if __name__ == "__main__":
-    #display_ngon(6, 8)
-    panel = get_panel(20, 20)
-    draw_line(panel, 18.660254037844386, 15.0, 18.66025403784439, 5.00)
-    display_panel(panel)
-    ()
-
-#18.660254037844386, 15.0, 18.66025403784439, 5.000000000000002
+    from time import sleep
+    from os import system
+    for i in range(1,100):
+        system("cls")
+        display_ngon(i, 100)
+        sleep(1)
