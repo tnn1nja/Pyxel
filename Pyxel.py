@@ -71,9 +71,4 @@ def display_ngon(n, radius):
 
 
 if __name__ == "__main__":
-    from time import sleep
-    from os import system
-    for i in range(1,100):
-        system("cls")
-        display_ngon(i, 100)
-        sleep(1)
+    pass
