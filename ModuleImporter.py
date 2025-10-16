@@ -1,4 +1,4 @@
-import Pyxelart
+import Pyxel
 
-Pyxelart.drawCircle(10)
-Pyxelart.drawTriangle(21)
+Pyxel.drawCircle(10)
+Pyxel.drawTriangle(21)

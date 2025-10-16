@@ -18,6 +18,9 @@ def display_panel(panel):
     print("")
 
 def draw(panel, x, y):
+    if x % 1 == 0.5 or y % 1 == 0.5:
+        return
+    
     x = round(x)
     y = round(y)
     if 0 <= x < len(panel[0]) and x >= 0 and 0 <= y < len(panel):
@@ -56,6 +59,5 @@ def display_triangle(width, height=None):
 
 if __name__ == "__main__":
     panel = get_panel(10)
-    draw_line(panel, 0, 6, 0, 9)
     display_panel(panel)
     ()
