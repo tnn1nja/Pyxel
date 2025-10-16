@@ -11,22 +11,20 @@ def get_panel(width, height=None):
 def display_panel(panel):
     print("")
     for row in reversed(panel):
-        for element in row:
-            if debug: print(element, end=" ")
-            else: print(element*2, end="")
+        for pixel in row:
+            if debug: print(pixel, end=" ")
+            else: print(pixel*2, end="")
         print("")
     print("")
 
 def draw(panel, x, y):
     if x < len(panel) and x >= 0 and y < len(panel[0]) and y >= 0:
         panel[round(y)][round(x)] = block
-        print(f"success: {round(x)},{round(y)}")
-    else:
-        print("fail")
 
 def draw_line(panel, a, b, c, d):
-    if c == a:
-        return
+    if a == c:
+        for y in range(len(panel)):
+            draw(panel, a, y)
     else:
         m = (b-d)/(a-c)
         iterations = round((abs(c-a)+1)*(abs(m)+1)*100)
@@ -57,5 +55,13 @@ def display_triangle(width, height=None):
 
 if __name__ == "__main__":
     panel = get_panel(10)
+    #draw_line(panel, 0, 9, 0, 0)
+    #draw_line(panel, 0, 9, 9, 9)
+    #draw_line(panel, 9, 9, 9, 0)
+    #draw_line(panel, 9, 0, 0, 0)
+    #draw_line(panel, 0, 0, 9, 9)
+    #draw_line(panel, 9, 9, 0, 0)
+    draw_line(panel, 0, 9, 0, 9)
+    #currently vertical drawer always covers the entire panel
     display_panel(panel)
     ()
