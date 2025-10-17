@@ -53,12 +53,15 @@ def drawCircle(radius, useTrig=True):
 
 def drawTriangle(width, height):
     grid = getGrid(width, height)
-    mid = round((width)/2)
-    print(f"width: {width}, mid: {mid}")
-    addLine(grid, 0, 0, mid, height-1)
-    addLine(grid, mid, height-1, width-1, 0)
+    midLeft = math.floor((width-1)/2)
+    midRight = math.ceil((width-1)/2)
+
+    print(f"width: {width}, mid: {midLeft}, {midRight}")
+    addLine(grid, 0, 0, midLeft, height-1)
+    addLine(grid, midRight, height-1, width-1, 0)
     addLine(grid, 0, 0, width-1, 0)
 
     drawGrid(grid)
 
+drawTriangle(20, 21)
 drawTriangle(21, 21)
