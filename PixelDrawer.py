@@ -1,15 +1,13 @@
 import math
-debug = True
+debug = False
 block, space = ("#", ".") if debug else ("█", " ")
 
-def getGrid(width, height=None):
-    if height == None:
-        height = width
+def getGrid(width, height):
     return [[space]*width for x in range(height)]  
 
 def drawGrid(grid):
     print("")
-    for row in grid:
+    for row in reversed(grid):
         for element in row:
             if debug:
                 print(element, end=" ")
@@ -20,23 +18,20 @@ def drawGrid(grid):
 
 def addLine(grid, a, b, c, d):
     if c == a:
-        return
+        return 
     elif b == d:
         m = 0
     else:
         m = (b-d)/(a-c)
 
     iterations = round((abs(c-a)+1)*(abs(m)+1)*100)
-    print(m)
-    print(iterations)
     for i in range(iterations+1):
         x = min(a,c) + (i/iterations)*abs(c-a)
         y = m*x - m*a + b
         grid[round(y)][round(x)] = block
-    print("\n")
 
 def drawCircle(radius, useTrig=True):
-    grid = getGrid(radius*2+1)
+    grid = getGrid(radius*2+1, radius*2+1)
     resolution = radius*100
     
     if useTrig:
@@ -56,6 +51,14 @@ def drawCircle(radius, useTrig=True):
 
     drawGrid(grid)
 
-grid = getGrid(11)
-addLine(grid, 5, 10, 0, 0)
-drawGrid(grid)
+def drawTriangle(width, height):
+    grid = getGrid(width, height)
+    mid = round((width)/2)
+    print(f"width: {width}, mid: {mid}")
+    addLine(grid, 0, 0, mid, height-1)
+    addLine(grid, mid, height-1, width-1, 0)
+    addLine(grid, 0, 0, width-1, 0)
+
+    drawGrid(grid)
+
+drawTriangle(21, 21)
