@@ -51,7 +51,10 @@ def drawCircle(radius, useTrig=True):
 
     drawGrid(grid)
 
-def drawTriangle(width, height):
+def drawTriangle(width, height=None):
+    if height == None:
+        height = width
+
     grid = getGrid(width, height)
     midLeft = math.floor((width-1)/2)
     midRight = math.ceil((width-1)/2)
@@ -62,6 +65,3 @@ def drawTriangle(width, height):
     addLine(grid, 0, 0, width-1, 0)
 
     drawGrid(grid)
-
-drawTriangle(20, 21)
-drawTriangle(21, 21)
