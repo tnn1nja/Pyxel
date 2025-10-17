@@ -7,6 +7,17 @@ def getGrid(width, height=None):
         height = width
     return [[space]*width for x in range(height)]  
 
+def drawGrid(grid):
+    print("")
+    for row in grid:
+        for element in row:
+            if debug:
+                print(element, end=" ")
+            else:
+                print(element*2, end="")
+        print("")
+    print("")
+
 def addLine(grid, a, b, c, d):
     if c == a:
         return
@@ -23,17 +34,6 @@ def addLine(grid, a, b, c, d):
         y = m*x - m*a + b
         grid[round(y)][round(x)] = block
     print("\n")
-
-def drawGrid(grid):
-    print("")
-    for row in grid:
-        for element in row:
-            if debug:
-                print(element, end=" ")
-            else:
-                print(element*2, end="")
-        print("")
-    print("")
 
 def drawCircle(radius, useTrig=True):
     grid = getGrid(radius*2+1)
