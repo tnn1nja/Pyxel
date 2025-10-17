@@ -1,6 +1,6 @@
-import Pyxel
+import pyxel
 
-panel = Pyxel.Panel(201)
+panel = pyxel.Panel(201)
 panel.draw_ngon(0, 0, 3, 100)
 panel.draw_ngon(0, 0, 4, 100)
 panel.draw_ngon(0, 0, 5, 100)
