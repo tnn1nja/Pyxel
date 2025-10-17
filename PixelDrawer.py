@@ -1,17 +1,28 @@
 import math
-debug = False
+debug = True
 block, space = ("#", ".") if debug else ("█", " ")
 
-def getGrid(width, height):
+def getGrid(width, height=None):
+    if height == None:
+        height = width
     return [[space]*width for x in range(height)]  
 
 def addLine(grid, a, b, c, d):
-    m = (b-d)/(a-c)
-    iterations = round((c-a)*m)
-    for i in range(iterations):
-        x = a + i/iterations
-        y = m*a - m*a + b
+    if c == a:
+        return
+    elif b == d:
+        m = 0
+    else:
+        m = (b-d)/(a-c)
+
+    iterations = round((abs(c-a)+1)*(abs(m)+1)*100)
+    print(m)
+    print(iterations)
+    for i in range(iterations+1):
+        x = min(a,c) + (i/iterations)*abs(c-a)
+        y = m*x - m*a + b
         grid[round(y)][round(x)] = block
+    print("\n")
 
 def drawGrid(grid):
     print("")
@@ -25,7 +36,7 @@ def drawGrid(grid):
     print("")
 
 def drawCircle(radius, useTrig=True):
-    grid = getGrid(radius*2+1, radius*2+1)
+    grid = getGrid(radius*2+1)
     resolution = radius*100
     
     if useTrig:
@@ -45,6 +56,6 @@ def drawCircle(radius, useTrig=True):
 
     drawGrid(grid)
 
-grid = getGrid(10,10)
-addLine(grid, 0, 0, 5, 10)
+grid = getGrid(11)
+addLine(grid, 5, 10, 0, 0)
 drawGrid(grid)
