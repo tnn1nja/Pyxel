@@ -14,7 +14,6 @@ class Panel:
         if height == None:
             height = width
 
-        self.debug = debug
         if debug:
             self.block = "#"
             self.space = "."
@@ -22,7 +21,8 @@ class Panel:
             self.block = "\u2588"
             self.space = " "
 
-        self.panel = [[self.space]*width for x in range(height)]
+        self.debug = debug
+        self.panel = [[False]*width for x in range(height)]
 
     def display(self):
         if not self.debug:
@@ -30,9 +30,9 @@ class Panel:
         for row in reversed(self.panel):
             for pixel in row:
                 if self.debug:
-                    print(pixel, end=" ")
+                    print(("#" if pixel else "."), end=" ")
                 else:
-                    print(pixel*2, end="")
+                    print(("\u2588" if pixel else " ")*2, end="")
             print("")
 
     def draw(self, x, y):
@@ -42,7 +42,7 @@ class Panel:
         x = round(x)
         y = round(y)
         if 0 <= x < len(self.panel[0]) and 0 <= y < len(self.panel):
-            self.panel[y][x] = self.block
+            self.panel[y][x] = True
 
     def draw_line(self, a, b, c, d):
         if round(a,5) == round(c,5):
