@@ -11,11 +11,9 @@ def polar_to_cartesian(radius, angle):
 
 class Panel:
     def __init__(self, width, height=None, debug=False):
-        if height == None:
-            height = width
-
-        self.debug = debug
+        height = height if height else width
         self.panel = [[False]*width for x in range(height)]
+        self.debug = debug
 
     def display(self):
         if not self.debug:
@@ -28,21 +26,31 @@ class Panel:
                     print(("\u2588" if pixel else " ")*2, end="")
             print("")
 
-    def setPixel(self, x, y, value):
-        if x % 1 == 0.5 or y % 1 == 0.5:
-            return
-        
-        x = round(x)
-        y = round(y)
-        if 0 <= x < len(self.panel[0]) and 0 <= y < len(self.panel):
-            self.panel[y][x] = value
+    def set_pixel(self, x, y, value):
+        if x % 1 != 0.5 and y % 1 != 0.5:
+            x = round(x)
+            y = round(y)
+            if 0 <= x < len(self.panel[0]) and 0 <= y < len(self.panel):
+                self.panel[y][x] = value
     
+    def set_pixels(self, a, b, c, d, value):
+        a, c = sorted(a, c)
+        b, d = sorted(b, d)
+        for y in range(b, d+1):
+            for x in range(a, c+1):
+                self.set_pixel(value)
+        
     def draw(self, x, y):
-        self.setPixel(x, y, True)
+        self.set_pixel(x, y, True)
         
     def erase(self, x, y):
-        self.setPixel(x, y, False)
-        
+        self.set_pixel(x, y, False)
+    
+    def fill(self, a, b, c, d):
+        self.set_pixels(a, b, c, d, True)
+    
+    def clear(self, a, b, c, d):
+        self.set_pixels(a, b, c, d, False)
 
     def draw_line(self, a, b, c, d):
         if round(a,5) == round(c,5):
