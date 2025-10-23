@@ -14,13 +14,6 @@ class Panel:
         if height == None:
             height = width
 
-        if debug:
-            self.block = "#"
-            self.space = "."
-        else:
-            self.block = "\u2588"
-            self.space = " "
-
         self.debug = debug
         self.panel = [[False]*width for x in range(height)]
 
@@ -35,14 +28,21 @@ class Panel:
                     print(("\u2588" if pixel else " ")*2, end="")
             print("")
 
-    def draw(self, x, y):
+    def setPixel(self, x, y, value):
         if x % 1 == 0.5 or y % 1 == 0.5:
             return
         
         x = round(x)
         y = round(y)
         if 0 <= x < len(self.panel[0]) and 0 <= y < len(self.panel):
-            self.panel[y][x] = True
+            self.panel[y][x] = value
+    
+    def draw(self, x, y):
+        self.setPixel(x, y, True)
+        
+    def erase(self, x, y):
+        self.setPixel(x, y, False)
+        
 
     def draw_line(self, a, b, c, d):
         if round(a,5) == round(c,5):
