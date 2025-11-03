@@ -10,20 +10,20 @@ def polar_to_cartesian(radius, angle):
     return x, y
 
 class Panel:
-    def __init__(self, width, height=None, debug=False):
+    def __init__(self, width, height=None):
         height = height if height else width
         self.panel = [[False]*width for x in range(height)]
-        self.debug = debug
 
-    def display(self):
-        if not self.debug:
+    def display(self, debug=False):
+        if not debug:
             clear_console()
         for row in reversed(self.panel):
             for pixel in row:
-                if self.debug:
+                if debug:
                     print(("#" if pixel else "."), end=" ")
                 else:
-                    print(("\u2588" if pixel else " ")*2, end="")
+                    full_block = "\u2588"
+                    print((full_block if pixel else " ")*2, end="")
             print("")
 
     def draw(self, x, y): self.set_pixel(x, y, True)
