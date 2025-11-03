@@ -16,13 +16,13 @@ class Panel:
 
     def display(self, debug=False):
         if not debug:
+            full_block = "\u2588"
             clear_console()
         for row in reversed(self.panel):
             for pixel in row:
                 if debug:
                     print(("#" if pixel else "."), end=" ")
                 else:
-                    full_block = "\u2588"
                     print((full_block if pixel else " ")*2, end="")
             print("")
 
