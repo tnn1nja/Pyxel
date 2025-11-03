@@ -26,6 +26,8 @@ class Panel:
                     print(("\u2588" if pixel else " ")*2, end="")
             print("")
 
+    def draw(self, x, y): self.set_pixel(x, y, True)
+    def erase(self, x, y): self.set_pixel(x, y, False)
     def set_pixel(self, x, y, value):
         if x % 1 != 0.5 and y % 1 != 0.5:
             x = round(x)
@@ -33,24 +35,14 @@ class Panel:
             if 0 <= x < len(self.panel[0]) and 0 <= y < len(self.panel):
                 self.panel[y][x] = value
     
+    def fill(self, a, b, c, d): self.set_pixels(a, b, c, d, True)
+    def clear(self, a, b, c, d): self.set_pixels(a, b, c, d, False)
     def set_pixels(self, a, b, c, d, value):
         a, c = sorted(a, c)
         b, d = sorted(b, d)
         for y in range(b, d+1):
             for x in range(a, c+1):
                 self.set_pixel(value)
-        
-    def draw(self, x, y):
-        self.set_pixel(x, y, True)
-        
-    def erase(self, x, y):
-        self.set_pixel(x, y, False)
-    
-    def fill(self, a, b, c, d):
-        self.set_pixels(a, b, c, d, True)
-    
-    def clear(self, a, b, c, d):
-        self.set_pixels(a, b, c, d, False)
 
     def draw_line(self, a, b, c, d):
         if round(a,5) == round(c,5):
