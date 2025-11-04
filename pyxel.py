@@ -38,11 +38,11 @@ class Panel:
     def fill(self, a, b, c, d): self.set_pixels(a, b, c, d, True)
     def clear(self, a, b, c, d): self.set_pixels(a, b, c, d, False)
     def set_pixels(self, a, b, c, d, value):
-        a, c = sorted(a, c)
-        b, d = sorted(b, d)
+        a, c = sorted((a, c))
+        b, d = sorted((b, d))
         for y in range(b, d+1):
             for x in range(a, c+1):
-                self.set_pixel(value)
+                self.set_pixel(x, y, value)
 
     def draw_line(self, a, b, c, d):
         if round(a,5) == round(c,5):
