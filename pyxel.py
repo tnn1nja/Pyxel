@@ -45,14 +45,16 @@ class Panel:
                 self.set_pixel(x, y, value)
 
     def draw_line(self, a, b, c, d):
+        a, c = sorted((a, c))
+        b, d = sorted((b, d))
         if round(a,5) == round(c,5):
-            for y in range(round(min(b,d)), round(max(b,d))+1):
+            for y in range(b), round(d+1):
                 self.draw(a, y)
         else:
             m = (b-d)/(a-c)
-            iterations = round((abs(c-a)+1)*len(self.panel))
+            iterations = round(c-a+1)*len(self.panel)
             for i in range(iterations+1):
-                x = min(a,c) + (i/iterations)*abs(c-a)
+                x = a + (i/iterations)*c-a
                 y = m*x - m*a + b
                 self.draw(x , y)
 
@@ -60,7 +62,7 @@ class Panel:
         if height == None:
             height = width
         self.draw_line(a, b, math.floor((width-1)/2)+a, height-1+b)
-        self.draw_line(math.ceil(width-1)/2+a, height-1+b, width-1, b)
+        self.draw_line(math.ceil((width-1)/2)+a, height-1+b, width-1+a, b)
         self.draw_line(width-1+a, b, a, b)
 
     def draw_circle(self, a, b, radius):
