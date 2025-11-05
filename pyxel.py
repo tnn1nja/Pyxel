@@ -1,9 +1,11 @@
 import math
 import os
 
+#Clear Terminal Window
 def clear_console():
     os.system("cls" if os.name == "nt" else "clear")
 
+#Convert Cooridinates from Polar to Cartesian
 def polar_to_cartesian(radius, angle):
     x = radius + radius*math.sin(angle)
     y = radius + radius*math.cos(angle)
