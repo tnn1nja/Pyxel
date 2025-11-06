@@ -1,6 +1,8 @@
 import math
 import os
 
+full_block = "\u2588"
+
 def clear_console():
     os.system("cls" if os.name == "nt" else "clear")
 
@@ -12,28 +14,25 @@ def polar_to_cartesian(radius, angle):
 
 class Panel:
     def __init__(self, width, height=None):
-        height = height if height else width
-        self.panel = [[False]*width for x in range(height)]
+        self.height = height if height else width
+        self.width = width
+        self.panel = [[False]*self.width for row in range(self.height)]
 
     def display(self, debug=False):
-        if not debug:
-            full_block = "\u2588"
-            clear_console()
+        if not debug: clear_console()
         for row in reversed(self.panel):
             for pixel in row:
                 if debug: print(("#" if pixel else "."), end=" ")
                 else:     print((full_block*2 if pixel else "  "), end="")
             print("")
     
-    def draw(self, x, y): self.set_pixel(x, y, True)
+    def draw(self, x, y): self``.set_pixel(x, y, True)
     def erase(self, x, y): self.set_pixel(x, y, False)
     def set_pixel(self, x, y, value):
-        panel_width = len(self.panel[0])
-        panel_height = len(self.panel)
         if x % 1 != 0.5 and y % 1 != 0.5:
             x = round(x)
             y = round(y)
-            if 0 <= x < panel_width and 0 <= y < panel_height:
+            if 0 <= x < self.width and 0 <= y < self.height:
                 self.panel[y][x] = value
     
     def fill(self, a, b, c, d): self.set_pixels(a, b, c, d, True)
@@ -46,20 +45,20 @@ class Panel:
                 self.set_pixel(x, y, value)
 
     def draw_line(self, a, b, c, d):
-        if round(a,5) == round(c,5):
-            for y in range(round(min(b,d)), round(max(b,d))+1):
+        if round(a) == round(c):
+            b, d = sorted((b, d))
+            for y in range(round(b), round(d)+1):
                 self.draw(a, y)
         else:
             m = (b-d)/(a-c)
-            iterations = round((abs(c-a)+1)*len(self.panel))
+            iterations = round((abs(a-c))*self.height)
             for i in range(iterations+1):
-                x = min(a,c) + (i/iterations)*abs(c-a)
+                x = min(a,c) + (i/iterations)*abs(a-c)
                 y = m*x - m*a + b
                 self.draw(x , y)
 
     def draw_triangle(self, a, b, width, height=None):
-        if height == None:
-            height = width
+        if not height: height = width
         self.draw_line(a, b, math.floor((width-1)/2)+a, height-1+b)
         self.draw_line(math.ceil((width-1)/2)+a, height-1+b, width-1+a, b)
         self.draw_line(width-1+a, b, a, b)
@@ -76,3 +75,9 @@ class Panel:
             if i > 0:
                 self.draw_line(lx+a, ly+b, x+a, y+b)
             lx, ly = x, y
+
+
+if __name__ == "__main__":
+    panel = Panel(25)
+    panel.draw_polygon(0, 0, 6, 12)
+    panel.display(True)
