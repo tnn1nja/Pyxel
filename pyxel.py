@@ -26,7 +26,7 @@ class Panel:
                 else:     print((full_block*2 if pixel else "  "), end="")
             print("")
     
-    def draw(self, x, y): self``.set_pixel(x, y, True)
+    def draw(self, x, y): self.set_pixel(x, y, True)
     def erase(self, x, y): self.set_pixel(x, y, False)
     def set_pixel(self, x, y, value):
         if x % 1 != 0.5 and y % 1 != 0.5:
@@ -40,8 +40,8 @@ class Panel:
     def set_pixels(self, a, b, c, d, value):
         a, c = sorted((a, c))
         b, d = sorted((b, d))
-        for y in range(b, d+1):
-            for x in range(a, c+1):
+        for y in range(round(b), round(d)+1):
+            for x in range(round(a), round(c+1)):
                 self.set_pixel(x, y, value)
 
     def draw_line(self, a, b, c, d):
@@ -50,18 +50,29 @@ class Panel:
             for y in range(round(b), round(d)+1):
                 self.draw(a, y)
         else:
-            m = (b-d)/(a-c)
-            iterations = round((abs(a-c))*self.height)
+            gradient = (b-d)/(a-c)
+            line_width = abs(a-c)
+            iterations = round(line_width*max(1,abs(gradient)))
             for i in range(iterations+1):
-                x = min(a,c) + (i/iterations)*abs(a-c)
-                y = m*x - m*a + b
-                self.draw(x , y)
+                x = min(a,c) + (i/iterations)*line_width
+                y = gradient*x - gradient*a + b
+                self.draw(x, y)
+    
+    def draw_shape(self, a, b, vertices):
+        previous_vertex = None
+        for vertex in vertices:
+            if previous_vertex:
+                self.draw_line(a, b, previous_vertex[0], previous_vertex[1])
 
     def draw_triangle(self, a, b, width, height=None):
         if not height: height = width
-        self.draw_line(a, b, math.floor((width-1)/2)+a, height-1+b)
-        self.draw_line(math.ceil((width-1)/2)+a, height-1+b, width-1+a, b)
-        self.draw_line(width-1+a, b, a, b)
+        left_peak = math.floor((width-1)/2)
+        right_peak = math.ceil((width-1)/2)
+        right_edge = width-1
+        top_edge = height-1
+        self.draw_line(a, b, left_peak+a, top_edge+b)
+        self.draw_line(right_peak+a, top_edge+b, right_edge+a, b)
+        self.draw_line(right_edge+a, b, a, b)
 
     def draw_circle(self, a, b, radius):
         resolution = radius*100
